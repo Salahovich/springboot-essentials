@@ -1,8 +1,8 @@
 package giza.example.springbootessentials.Controllers;
 
+import giza.example.springbootessentials.Annotations.Traceable;
 import giza.example.springbootessentials.Models.Student;
 import giza.example.springbootessentials.Services.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,10 +10,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/university/students")
 public class StudentController {
-
-    @Autowired
-    private StudentService studentService;
-    @GetMapping()
+    private final StudentService studentService;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+    @GetMapping
     public ResponseEntity<List<Student>> findAll(){
         List<Student> students = studentService.findAll();
         return ResponseEntity.ok(students);
@@ -25,12 +26,12 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(student);
     }
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<List<Student>> addStudent(@RequestBody Student student){
         List<Student> students = studentService.addStudent(student);
         return ResponseEntity.ok(students);
     }
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<List<Student>> updateStudent(@RequestBody Student student){
         List<Student> students = studentService.updateStudent(student);
         if(students == null)
