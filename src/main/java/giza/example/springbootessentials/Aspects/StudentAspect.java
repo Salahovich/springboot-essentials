@@ -3,13 +3,14 @@ package giza.example.springbootessentials.Aspects;
 import giza.example.springbootessentials.Models.Student;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Aspect
 @Component
-public class StudentAspect {
+public class StudentAspect{
     @Around("execution(* giza.example.springbootessentials.Services.StudentService.addStudent(..)) && args(student,..)")
     public Object logNewStudent(ProceedingJoinPoint pjp, Student student) throws Throwable {
         System.out.println("Logging new Student adding to the system.");

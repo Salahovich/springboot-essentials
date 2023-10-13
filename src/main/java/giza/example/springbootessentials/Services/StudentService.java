@@ -1,43 +1,38 @@
 package giza.example.springbootessentials.Services;
 
+import giza.example.springbootessentials.Exceptions.StudentNotFoundException;
 import giza.example.springbootessentials.Models.Student;
+import giza.example.springbootessentials.Repositories.JPA.StudentRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 @Service
 public class StudentService {
+//
+//    @Autowired
+//    private StudentRepository repository;
 
-    private final List<Student> students = new ArrayList<>();
-
-    public List<Student> findAll(){
-        return students;
+    @Autowired
+    private StudentRepositoryJpa repository;
+    public Iterable<Student> findAll(){
+        return repository.findAll();
     }
 
-    public Student findStudentById(int id){
-        var student = students.stream().filter(s -> s.getId() == id).findFirst();
-        return student.orElse(null);
+    public Student findStudentById(UUID uuid){
+        return repository.findById(uuid).orElseThrow(StudentNotFoundException::new);
     }
 
-    public List<Student> addStudent(Student student){
-        students.add(student);
-        return students;
+    public Student saveStudent(Student student){
+        return repository.save(student);
     }
 
-    public List<Student> updateStudent(Student student){
-        Student stu = findStudentById(student.getId());
-        if(stu != null){
-            stu.clone(student);
-            return students;
-        }
-        return null;
+    public Student updateStudent(Student student){
+       return null;
     }
 
-    public List<Student> deleteStudentById(int id){
-        students.removeIf(s -> s.getId() == id);
-        return students;
+    public void deleteStudentById(UUID id){
+        repository.deleteById(id);
     }
 }
