@@ -6,11 +6,13 @@ import giza.example.springbootessentials.Repositories.JPA.StudentRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class StudentService {
-//
+////
 //    @Autowired
 //    private StudentRepository repository;
 
@@ -23,7 +25,9 @@ public class StudentService {
     public Student findStudentById(UUID uuid){
         return repository.findById(uuid).orElseThrow(StudentNotFoundException::new);
     }
-
+    public List<Map<String, Object>> findStudentsEnrolledInIntermediateCourses(){
+        return repository.findStudentsEnrolledInIntermediateCourses();
+    }
     public Student saveStudent(Student student){
         return repository.save(student);
     }

@@ -13,7 +13,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
-import java.util.Set;
 import java.util.UUID;
 @Entity
 @Getter
@@ -47,8 +46,5 @@ public class Student implements Serializable {
     private String phoneNumber;
     @Column(name = "national_id")
     private String nationalId;
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
-    private Set<Course> courses;
-    @Transient
-    private String fullName;
+
 }

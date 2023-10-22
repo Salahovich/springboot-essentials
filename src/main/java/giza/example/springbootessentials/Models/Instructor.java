@@ -40,7 +40,7 @@ public class Instructor  implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "details_id")
     private InstructorDetails details;
 
