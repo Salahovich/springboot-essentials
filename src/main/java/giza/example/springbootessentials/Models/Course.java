@@ -36,7 +36,7 @@ public class Course implements Serializable {
     @Column(name = "is_started")
     private boolean started;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name ="instructor_id")
     private Instructor instructor;
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CalculatorServiceHybridTests {
+
     @Test
     public void testSummingPositiveIntegerAndNegativeIntegersAndReturnInteger(){
         int numberOne = 10;
