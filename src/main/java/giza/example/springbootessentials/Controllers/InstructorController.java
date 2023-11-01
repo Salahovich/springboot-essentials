@@ -6,6 +6,7 @@ import giza.example.springbootessentials.Models.Instructor;
 import giza.example.springbootessentials.Services.InstructorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class InstructorController {
     public ResponseEntity<InstructorDto> addInstructor(@RequestBody @Valid InstructorDto instructorDto){
         InstructorMapper mapper = new InstructorMapper();
         Instructor instructor = service.saveInstructor(mapper.convertToEntity(instructorDto));
-        return ResponseEntity.ok(mapper.convertToDto(instructor));
+        return new ResponseEntity<InstructorDto>(mapper.convertToDto(instructor), HttpStatus.CREATED);
     }
     @PutMapping
     public ResponseEntity<InstructorDto> updateInstructor(@RequestBody InstructorDto instructorDto){

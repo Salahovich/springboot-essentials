@@ -6,6 +6,7 @@ import giza.example.springbootessentials.Models.Course;
 import giza.example.springbootessentials.Services.CourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class CourseController {
     public ResponseEntity<CourseDto> addCourse(@RequestBody @Valid CourseDto courseDto){
         CourseMapper mapper = new CourseMapper();
         Course course = service.saveCourse(mapper.convertToEntity(courseDto));
-        return ResponseEntity.ok(mapper.convertToDto(course));
+        return new ResponseEntity<CourseDto>(mapper.convertToDto(course), HttpStatus.CREATED);
     }
 
     @PutMapping("/add-student/{studentId}/{courseId}")

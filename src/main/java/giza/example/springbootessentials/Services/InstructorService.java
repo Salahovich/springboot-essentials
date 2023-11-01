@@ -1,6 +1,6 @@
 package giza.example.springbootessentials.Services;
 
-import giza.example.springbootessentials.Exceptions.StudentNotFoundException;
+import giza.example.springbootessentials.Exceptions.InstructorNotFoundException;
 import giza.example.springbootessentials.Models.Instructor;
 import giza.example.springbootessentials.Repositories.JPA.InstructorRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class InstructorService {
     }
 
     public Instructor findInstructorById(UUID uuid){
-        return repository.findById(uuid).orElseThrow(StudentNotFoundException::new);
+        return repository.findById(uuid).orElseThrow(InstructorNotFoundException::new);
     }
 
     public List<Map<String, Object>> findInstructorsWithTheirCourses(){
