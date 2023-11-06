@@ -1,4 +1,4 @@
-package giza.example.springbootessentials;
+package giza.example.springbootessentials.Unit.Calculator;
 
 import giza.example.springbootessentials.Services.CalculatorService;
 import org.junit.jupiter.api.Assertions;

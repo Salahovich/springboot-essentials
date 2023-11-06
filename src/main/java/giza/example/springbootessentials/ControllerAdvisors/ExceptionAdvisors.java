@@ -1,8 +1,6 @@
 package giza.example.springbootessentials.ControllerAdvisors;
 
-import giza.example.springbootessentials.Exceptions.CourseNotFoundException;
-import giza.example.springbootessentials.Exceptions.InstructorNotFoundException;
-import giza.example.springbootessentials.Exceptions.StudentNotFoundException;
+import giza.example.springbootessentials.Exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,33 +19,27 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(StudentNotFoundException.class)
-    public ResponseEntity<Object> handleStudentNotFoundException(StudentNotFoundException exc, WebRequest request) {
+public class ExceptionAdvisors extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler({
+            EmailFormatException.class,
+            NationalIdFormatException.class,
+            CourseNameAlreadyExists.class,
+            PhoneNumberFormatException.class,
+            StudentAlreadyEnrolled.class,
+            StudentNotFoundException.class,
+            InstructorNotFoundException.class,
+            CourseNotFoundException.class,
+            StudentAlreadyExistException.class,
+            InstructorAlreadyExistException.class,
+    })
+    public ResponseEntity<Object> handleServiceExceptions(Exception exc, WebRequest request){
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", exc.getMessage());
 
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
-    @ExceptionHandler(InstructorNotFoundException.class)
-    public ResponseEntity<Object> handleInstructorNotFoundException(InstructorNotFoundException exc, WebRequest request) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", exc.getMessage());
-
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
-    @ExceptionHandler(CourseNotFoundException.class)
-    public ResponseEntity<Object> handleStudentNotFoundException(CourseNotFoundException exc, WebRequest request) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", exc.getMessage());
-
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
